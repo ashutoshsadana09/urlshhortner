@@ -1,13 +1,13 @@
-const express=require('express');
-const { urlshortner,getanalytics } = require("../controller/url");
+const express = require("express");
+const {
+  handleGenerateNewShortURL,
+  handleGetAnalytics,
+} = require("../controllers/url");
 
 const router = express.Router();
 
-router.route("/")
-    .post(urlshortner);
+router.post("/", handleGenerateNewShortURL);
 
-router.route("/analytics/:shortId")
-    .get(getanalytics);
+router.get("/analytics/:shortId", handleGetAnalytics);
 
 module.exports = router;
-
