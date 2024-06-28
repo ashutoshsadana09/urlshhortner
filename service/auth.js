@@ -1,21 +1,26 @@
-const jwt =require("jsonwebtoken")
-const secret ="ashutosh@#$"
-function setUser(user) {
+const jwt =require("jsonwebtoken");
+const secret ="ashutosh@#$";
+function setuser(user) {
   return jwt.sign({
-    _id:user._id,email:user.email
-  })
- 
-  return jwt.sign(payload,secret);
+      _id:user._id,email:user.email
+    }, secret);
 }
 
 
-function getUser(token) {
+function getuser(token) {
   if(!token) return null;
-  return jwt.verify(token,secret);
-  
+  let user = null;
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      console.error(err);
+    } else {
+      user = decoded;
+    }
+  });
+  return user;
 }
 
 module.exports = {
-  setUser,
-  getUser,
+  setuser,
+  getuser,
 };
